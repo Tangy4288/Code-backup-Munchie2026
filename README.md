@@ -1,4 +1,4 @@
-"<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -781,7 +781,6 @@ function createWaterBody(x,z) {
   
 
   
-  
   const WcoutlineMesh = new THREE.Mesh(circle.geometry.clone(), outlineMaterial);
   WcoutlineMesh.scale.multiplyScalar(1.021); // Slightly bigger than original
   circle.add(WcoutlineMesh); // Add as child to sync position/quaternion automatically
@@ -811,6 +810,19 @@ function createWaterBody(x,z) {
   
   physicsWorld.addBody(bWcylinderBody);
 }
+
+const REST_Y = -1.7;
+
+const constraintAxis = new CANNON.Vec3(0, 1, 0);
+const yConstraint = new CANNON.CylinderConstraint(bWcylinderBody, WcylinderBody,
+{
+    localAxisA: constraintAxis,
+    localAxisB: constraintAxis,
+    collideConnected: false
+}
+);
+
+physicsWorld.addConstraint(yConstraint);
 
 
 function createBuildBase(x, y, z, Lwall = false, Rwall = false, Bwall = false, counter = false) {
@@ -905,7 +917,19 @@ function animate() {
   
   const elapsedTime = clock.getElapsedTime();
   
-  //WcylinderBody.position.copy(circle.position);
+  const currentY = WcylinderBody.position.y;
+  const displacement = currentY - REST_Y;
+  const springForceY = (-300 * displacement);
+  
+  WcylinderBody.applyForce(new CANNON.Vec3(0, springForceY, 0), WcylinderBody.position);
+  
+  if (WcylinderBody.position.y > REST_Y) {
+      WcylinderBody.position.y = REST_Y;
+      if (WcylinderBody.velocity.y > 0) WcylinderBody.velocity.y = 0;
+  }
+  
+  circle.position.copy(WcylinderBody.position);
+  circle.quaternion.copy(WcylinderBody.quaternion);
   
   // Sync cube meshes with physics bodies
   for (let i = 0; i < cubes.length; i++) {
@@ -1130,4 +1154,4 @@ animate();
 
 </script>
 </body>
-</html>"
+</html>
