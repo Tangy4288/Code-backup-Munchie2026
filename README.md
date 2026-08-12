@@ -192,6 +192,7 @@ const orderedDitherEffect = new OrderedDitherPass(8, 2);
 
 
 let click = false;
+let wallcolr = 0x4e4e4e;
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -416,12 +417,16 @@ const lineMat = new THREE.LineBasicMaterial({ color: 0x000000 });
 
 // Light
 
-//const Rl1wgeometry = new THREE.CylinderGeometry(2,2,4,8,1);
-//const Rl1wmaterial = new THREE.MeshBasicMaterial({ color: 0xddd5c4 });
-//const Rl1wmesh = new THREE.Mesh(Rl1geometry, Rl1material);
+const Rl1wgeometry = new THREE.CylinderGeometry(0.25,0.25,4,8,1);
+const Rl1wmaterial = new THREE.MeshStandardMaterial({ color: 0x6d5144 });
+const Rl1wmesh = new THREE.Mesh(Rl1wgeometry, Rl1wmaterial);
+Rl1wmesh.rotateY(2);
+Rl1wmesh.position.set(3,26,0);
+scene.add(Rl1wmesh);
+
 
 const Rl1geometry = new THREE.SphereGeometry(0.5, 16, 16);
-const Rl1material = new THREE.MeshBasicMaterial({ color: 0xddd5c4 });
+const Rl1material = new THREE.MeshBasicMaterial({ color: 0xeee6d5 });
 const Rl1mesh = new THREE.Mesh(Rl1geometry, Rl1material);
 Rl1mesh.position.set(3, 22, 0);
 scene.add(Rl1mesh);
@@ -765,10 +770,10 @@ function checkGrounded() {
 }
 
 function createWaterBody(x,z) {
-  //button 
+  //button base
   const geometry = new THREE.CylinderGeometry(2,2,4,8,1);
   geometry.rotateY(-Math.PI / 2);
-  const material = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
+  const material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
   const circle = new THREE.Mesh(geometry, material);
   circle.position.set(x,-1.9,z)
   scene.add(circle);
@@ -789,11 +794,11 @@ function createWaterBody(x,z) {
   
   physicsWorld.addBody(WcylinderBody);
   
-  //button base
+  //button 
   
   const bgeometry = new THREE.CylinderGeometry(1.5,1.5,4,8,1);
   bgeometry.rotateY(-Math.PI / 2);
-  const bmaterial = new THREE.MeshLambertMaterial({ color: 0x777777 });
+  const bmaterial = new THREE.MeshLambertMaterial({ color: 0xAAAAAA });
   const bcircle = new THREE.Mesh(bgeometry, bmaterial);
   bcircle.position.set(x,-1.8,z)
   scene.add(bcircle);
@@ -872,7 +877,7 @@ if (counter) {
 
 }
 
-//createBuildBase(7,0,10, true, true, true, true);
+createWall(11, 0, 21,100,25,2,0,0, 0, wallcolr);
 
 createWaterBody(20, 10)
 
