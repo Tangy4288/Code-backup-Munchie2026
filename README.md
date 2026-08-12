@@ -810,7 +810,7 @@ function createWaterBody(x,z) {
   
   physicsWorld.addBody(bWcylinderBody);
 }
-
+/*
 const REST_Y = -1.7;
 
 const constraintAxis = new CANNON.Vec3(0, 1, 0);
@@ -823,7 +823,7 @@ const yConstraint = new CANNON.CylinderConstraint(bWcylinderBody, WcylinderBody,
 );
 
 physicsWorld.addConstraint(yConstraint);
-
+*/
 
 function createBuildBase(x, y, z, Lwall = false, Rwall = false, Bwall = false, counter = false) {
 
@@ -916,7 +916,8 @@ function animate() {
   checkGrounded();
   
   const elapsedTime = clock.getElapsedTime();
-  
+  //logicSpring
+  /*
   const currentY = WcylinderBody.position.y;
   const displacement = currentY - REST_Y;
   const springForceY = (-300 * displacement);
@@ -927,9 +928,10 @@ function animate() {
       WcylinderBody.position.y = REST_Y;
       if (WcylinderBody.velocity.y > 0) WcylinderBody.velocity.y = 0;
   }
+  */
   
-  circle.position.copy(WcylinderBody.position);
-  circle.quaternion.copy(WcylinderBody.quaternion);
+  //circle.position.copy(WcylinderBody.position);
+  //circle.quaternion.copy(WcylinderBody.quaternion);
   
   // Sync cube meshes with physics bodies
   for (let i = 0; i < cubes.length; i++) {
