@@ -4,7 +4,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aladin&display=swap" rel="stylesheet">
-  <title>Dimen</title>
+  <title>Jurgon Modeling Test</title>
   <style>
     body {
       z-index: 1;
@@ -87,7 +87,7 @@
   text-shadow: 2px 2px 2px black;
   color: white;
   z-index: 9998;
-  ">Dimen</h1>
+  ">Jurgon Modeling Test</h1>
 
 <h1 id="ShopKeeperName" style="
   position: fixed;
@@ -192,7 +192,6 @@ const orderedDitherEffect = new OrderedDitherPass(8, 2);
 
 
 let click = false;
-let wallcolr = 0x4e4e4e;
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -417,16 +416,12 @@ const lineMat = new THREE.LineBasicMaterial({ color: 0x000000 });
 
 // Light
 
-const Rl1wgeometry = new THREE.CylinderGeometry(0.25,0.25,4,8,1);
-const Rl1wmaterial = new THREE.MeshStandardMaterial({ color: 0x6d5144 });
-const Rl1wmesh = new THREE.Mesh(Rl1wgeometry, Rl1wmaterial);
-Rl1wmesh.rotateY(2);
-Rl1wmesh.position.set(3,26,0);
-scene.add(Rl1wmesh);
-
+//const Rl1wgeometry = new THREE.CylinderGeometry(2,2,4,8,1);
+//const Rl1wmaterial = new THREE.MeshBasicMaterial({ color: 0xddd5c4 });
+//const Rl1wmesh = new THREE.Mesh(Rl1geometry, Rl1material);
 
 const Rl1geometry = new THREE.SphereGeometry(0.5, 16, 16);
-const Rl1material = new THREE.MeshBasicMaterial({ color: 0xeee6d5 });
+const Rl1material = new THREE.MeshBasicMaterial({ color: 0xddd5c4 });
 const Rl1mesh = new THREE.Mesh(Rl1geometry, Rl1material);
 Rl1mesh.position.set(3, 22, 0);
 scene.add(Rl1mesh);
@@ -770,10 +765,10 @@ function checkGrounded() {
 }
 
 function createWaterBody(x,z) {
-  //button base
+  //button 
   const geometry = new THREE.CylinderGeometry(2,2,4,8,1);
   geometry.rotateY(-Math.PI / 2);
-  const material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
+  const material = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
   const circle = new THREE.Mesh(geometry, material);
   circle.position.set(x,-1.9,z)
   scene.add(circle);
@@ -786,6 +781,7 @@ function createWaterBody(x,z) {
   
 
   
+  
   const WcoutlineMesh = new THREE.Mesh(circle.geometry.clone(), outlineMaterial);
   WcoutlineMesh.scale.multiplyScalar(1.021); // Slightly bigger than original
   circle.add(WcoutlineMesh); // Add as child to sync position/quaternion automatically
@@ -794,11 +790,11 @@ function createWaterBody(x,z) {
   
   physicsWorld.addBody(WcylinderBody);
   
-  //button 
+  //button base
   
   const bgeometry = new THREE.CylinderGeometry(1.5,1.5,4,8,1);
   bgeometry.rotateY(-Math.PI / 2);
-  const bmaterial = new THREE.MeshLambertMaterial({ color: 0xAAAAAA });
+  const bmaterial = new THREE.MeshLambertMaterial({ color: 0x777777 });
   const bcircle = new THREE.Mesh(bgeometry, bmaterial);
   bcircle.position.set(x,-1.8,z)
   scene.add(bcircle);
@@ -815,20 +811,7 @@ function createWaterBody(x,z) {
   
   physicsWorld.addBody(bWcylinderBody);
 }
-/*
-const REST_Y = -1.7;
 
-const constraintAxis = new CANNON.Vec3(0, 1, 0);
-const yConstraint = new CANNON.CylinderConstraint(bWcylinderBody, WcylinderBody,
-{
-    localAxisA: constraintAxis,
-    localAxisB: constraintAxis,
-    collideConnected: false
-}
-);
-
-physicsWorld.addConstraint(yConstraint);
-*/
 
 function createBuildBase(x, y, z, Lwall = false, Rwall = false, Bwall = false, counter = false) {
 
@@ -877,7 +860,7 @@ if (counter) {
 
 }
 
-createWall(11, 0, 21,100,25,2,0,0, 0, wallcolr);
+//createBuildBase(7,0,10, true, true, true, true);
 
 createWaterBody(20, 10)
 
@@ -893,6 +876,68 @@ createCube(3, 25, 0);
 //createCube(6, 20, 0);
 //createCube(6, 25, 0);
 
+// line to 3d model test 
+
+const carShape = new THREE.Shape();
+carShape.moveTo(-9, 2);
+carShape.lineTo(10,2.0); // Upper left curve Done
+carShape.lineTo(10,4.5);
+carShape.bezierCurveTo(10,4.5, 12.5,6.5, 15,4.5);
+carShape.bezierCurveTo(15,4.5, 15,2.0, 19,2.5);
+//carShape.quadraticCurveTo(10, 4.5, 12.5, 6.5)
+//carShape.lineTo(15,4.5);
+//carShape.lineTo(15,2.0);
+//carShape.lineTo(19,2.5);
+carShape.lineTo(19,6);
+carShape.lineTo(10,7.75);
+carShape.lineTo(8.75,7.75);
+carShape.lineTo(2.5,11.5);
+carShape.lineTo(-7.5,12.5);
+carShape.lineTo(-12.5,8.75);
+carShape.lineTo(-16.25,8.75);
+carShape.lineTo(-17.25,2.5);
+carShape.lineTo(-14,2.0);
+carShape.lineTo(-14,4.5);
+carShape.lineTo(-11.5,6.5);
+carShape.lineTo(-9,4.5);
+carShape.lineTo(-9,2.0);
+
+
+const extrudeCar = {
+    depth: 8,           // height of the extrusion
+    bevelEnabled: true, // add bevels
+    bevelSegments: 2,
+    steps: 2,
+    bevelSize: 1,
+    bevelThickness: 1
+};
+
+const cargeometry = new THREE.ExtrudeGeometry(carShape, extrudeCar);
+const carmesh = new THREE.Mesh(cargeometry, new THREE.MeshStandardMaterial({ color: 0x00ff00 }));
+scene.add(carmesh);
+/*
+const heartShape = new THREE.Shape();
+heartShape.moveTo(25, 70);
+heartShape.bezierCurveTo(25, 70, 15, 95, 0, 95); // Upper left curve Done
+heartShape.bezierCurveTo(-30, 95, -30, 60, -30, 65); // Left line bend/side of heart Done
+heartShape.bezierCurveTo(-30, 40, -10, 18, 25, 0); // Left bend to bottom tip Done
+heartShape.bezierCurveTo(60, 18, 80, 40, 80, 65); // Bottom right heart Done
+heartShape.bezierCurveTo(80, 65, 80, 95, 50, 95); // Right curve Done
+heartShape.bezierCurveTo(35, 95, 25, 70, 25, 70); // Back to start
+
+const extrudeHeart = {
+    depth: 8,           // height of the extrusion
+    bevelEnabled: true, // add bevels
+    bevelSegments: 2,
+    steps: 2,
+    bevelSize: 1,
+    bevelThickness: 1
+};
+
+const geometry = new THREE.ExtrudeGeometry(heartShape, extrudeHeart);
+const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+scene.add(mesh);
+*/
 const fixedTimeStep = 1 / 60;
 const maxSubSteps = 3;
 
@@ -921,22 +966,8 @@ function animate() {
   checkGrounded();
   
   const elapsedTime = clock.getElapsedTime();
-  //logicSpring
-  /*
-  const currentY = WcylinderBody.position.y;
-  const displacement = currentY - REST_Y;
-  const springForceY = (-300 * displacement);
   
-  WcylinderBody.applyForce(new CANNON.Vec3(0, springForceY, 0), WcylinderBody.position);
-  
-  if (WcylinderBody.position.y > REST_Y) {
-      WcylinderBody.position.y = REST_Y;
-      if (WcylinderBody.velocity.y > 0) WcylinderBody.velocity.y = 0;
-  }
-  */
-  
-  //circle.position.copy(WcylinderBody.position);
-  //circle.quaternion.copy(WcylinderBody.quaternion);
+  //WcylinderBody.position.copy(circle.position);
   
   // Sync cube meshes with physics bodies
   for (let i = 0; i < cubes.length; i++) {
